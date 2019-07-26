@@ -1,12 +1,25 @@
 const express = require('express');
 // Note: To prossess the JSON requests
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
+
 
 const app = express();
 app.use(bodyParser.json());
 
+// Hashing passwords
+// var salt = bcrypt.genSaltSync(10);
+// var hash = bcrypt.hashSync("hello", salt);
+
+// bcrypt.hash('hello', 10, function(err, hash) {
+//   console.log('check hash', hash);
+// });
+
 
 // Fake DB
+// Will send passwords via https
+// Store Passords using bcrypt hash in DB
+// npm install bcryptjs
 const database = {
   users: [
     {
@@ -25,7 +38,12 @@ const database = {
       entries: 0,
       joined: new Date()
     }
-  ]
+  ],
+  login: {
+    id: '987',
+    hash: '',
+    email: 'john@gmail.com'
+  }
 }
 
 // For checking Postman w/ 'localhost:3000/ ' & GET
@@ -46,6 +64,16 @@ app.get('/', (req, res) => {
 //   'password': 'cookies'
 // }
 app.post('/signin', (req, res) => {
+
+  // Testing Ann Example on hash 
+  bcrypt.compare("apples", '$2a$10$QyLUjxejp7BFC3xR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
+    console.log('first guess')
+  });
+
+  bcrypt.compare("whateverPassword", '$2a$10$QyLUjxejp7BFC3xR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
+    console.log('second guess')
+  });
+
 
   if(req.body.email == database.users[0].email &&
     req.body.password == database.users[0].password){
@@ -70,6 +98,13 @@ app.post('/signin', (req, res) => {
 app.post('/register', (req, res) => {
 
   const { name, email, password } = req.body;
+
+  // Output hash for testing 
+  bcrypt.hash(password, 10, function(err, hash) {
+    console.log('check hash', hash);
+    });
+
+  
 
   database.users.push({
       
