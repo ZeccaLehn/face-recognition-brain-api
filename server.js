@@ -86,11 +86,55 @@ app.post('/register', (req, res) => {
 
 })
 
+
+// Create a fake user
+// Test localhost:3000/profile/123 GET raw JSON in BODY from Postman using
+app.get('/profile/:id', (req, res) => {
+
+  const { id } = req.params;
+
+  let found = false;
+  database.users.forEach(user => {
+    
+    if(user.id === id){
+      found = true;
+      return res.json(user);
+    }
+
+  })
+
+  if(!found){
+      res.status(400).json('not found');
+    }
+
+})
+
+// Post image
+// Test localhost:3000/image POST raw JSON in BODY from Postman using
+app.post('/image', (req, res) => {
+
+  const { id } = req.body;
+  let found = false;
+  database.users.forEach(user => {
+    if(user.id === id){
+      found = true;
+      user.entries++
+      return res.json(user.entries);
+    }
+  })
+  if(!found){
+      res.status(400).json('image not found');
+  }
+})
+
+
+
+
 app.listen(3000, ()=> {
 
   console.log('app is running on port 3000');
 
-});
+})
 
 /* Plan API
 
