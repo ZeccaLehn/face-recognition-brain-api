@@ -2,19 +2,13 @@ const express = require('express');
 // Note: To prossess the JSON requests
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 
 
 const app = express();
 app.use(bodyParser.json());
-
-// Hashing passwords
-// var salt = bcrypt.genSaltSync(10);
-// var hash = bcrypt.hashSync("hello", salt);
-
-// bcrypt.hash('hello', 10, function(err, hash) {
-//   console.log('check hash', hash);
-// });
-
+// Note: npm install cors
+app.use(cors());
 
 // Fake DB
 // Will send passwords via https
@@ -65,14 +59,15 @@ app.get('/', (req, res) => {
 // }
 app.post('/signin', (req, res) => {
 
-  // Testing Ann Example on hash 
-  bcrypt.compare("apples", '$2a$10$QyLUjxejp7BFC3xR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
-    console.log('first guess')
-  });
+  // // Testing Ann Example on hash 
+  
+  // bcrypt.compare("apples", '$2a$10$QyLUjxejR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
+  //   console.log('first guess')
+  // });
 
-  bcrypt.compare("whateverPassword", '$2a$10$QyLUjxejp7BFC3xR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
-    console.log('second guess')
-  });
+  // bcrypt.compare("whateverPassword", '$2a$10$jp7BFC3xR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
+  //   console.log('second guess')
+  // });
 
 
   if(req.body.email == database.users[0].email &&
@@ -100,9 +95,9 @@ app.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
   // Output hash for testing 
-  bcrypt.hash(password, 10, function(err, hash) {
-    console.log('check hash', hash);
-    });
+  // bcrypt.hash(password, 10, function(err, hash) {
+  //   console.log('check hash', hash);
+  //   });
 
   
 
@@ -165,9 +160,9 @@ app.post('/image', (req, res) => {
 
 
 
-app.listen(3000, ()=> {
+app.listen(5000, ()=> {
 
-  console.log('app is running on port 3000');
+  console.log('API is running on port 5000');
 
 })
 
