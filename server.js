@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {
 
   // // Testing Ann Example on hash 
-  
+
   // bcrypt.compare("apples", '$2a$10$QyLUjxejR.2.hAOXfHDXBgOWcJMcKsXu1Md7M8dvgN03mK', function(err, res) {
   //   console.log('first guess')
   // });
@@ -106,7 +106,8 @@ app.post('/register', (req, res) => {
       id: '125',
       name: name,
       email: email,
-      password: password,
+      // Don't want to return password
+      // password: password,
       entries: 0,
       joined: new Date()
 
