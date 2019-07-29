@@ -69,11 +69,12 @@ app.post('/signin', (req, res) => {
   //   console.log('second guess')
   // });
 
-
+  // Note: as of subsection 261, signin will only allow for first set user
   if(req.body.email == database.users[0].email &&
     req.body.password == database.users[0].password){
 
-      res.json('success');
+      res.json(database.users[0])
+      // res.json('success');
 
   } else {
 
