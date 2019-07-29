@@ -6,7 +6,7 @@
 
 ** Make sure you use postgreSQL instead of mySQL for this code base.
 
-## 252 Setting up our Server
+## Server Test
 
 ```
 const express = require('express');
@@ -35,9 +35,6 @@ app.listen(3000, ()=> {
 */
 
 ```
-
-## 253. /signin and /register
-
 
 
 
