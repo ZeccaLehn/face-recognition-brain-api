@@ -143,6 +143,7 @@ app.get('/profile/:id', (req, res) => {
 
 // Post image
 // Test localhost:3000/image POST raw JSON in BODY from Postman using
+// Put request better for updating information
 app.post('/image', (req, res) => {
 
   const { id } = req.body;
