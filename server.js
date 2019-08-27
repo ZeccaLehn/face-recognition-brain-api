@@ -7,8 +7,9 @@ const cors = require('cors');
 const knex = require('knex');
 
 // Imports .env vars
+// npm install dotenv --save
 require('dotenv').config();
-console.log(process.env.DB_PW);
+// console.log(process.env.DB_PW);
 
 const db = knex({
   client: 'pg',
@@ -123,18 +124,27 @@ app.post('/register', (req, res) => {
   //   });
 
   
-
-  database.users.push({
+  // Write to temp
+  // database.users.push({
       
-      id: '125',
-      name: name,
-      email: email,
-      // Don't want to return password
-      // password: password,
-      entries: 0,
-      joined: new Date()
+  //     id: '125',
+  //     name: name,
+  //     email: email,
+  //     // Don't want to return password
+  //     // password: password,
+  //     entries: 0,
+  //     joined: new Date()
 
-  })
+  // })
+
+  // Write to Database
+  db('users').insert({
+    email: email,
+    name: name,
+    joined: new Date()
+  }).then(console.log)
+
+
 
   res.json(database.users[database.users.length - 1]);
 
