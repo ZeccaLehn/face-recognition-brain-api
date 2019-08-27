@@ -6,17 +6,25 @@ const cors = require('cors');
 
 const knex = require('knex');
 
-const postgres = knex({
+// Imports .env vars
+require('dotenv').config();
+console.log(process.env.DB_PW);
+
+const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: '',
-    database: 'smartbrain'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PW || undefined,
+    database: process.env.DB_DATABASE
   }
 });
 
-console.log(postgres.select('*').from('users'));
+db.select('*').from('users').then(
+  data => {
+    console.log(data);
+  }
+);
 
 
 const app = express();
