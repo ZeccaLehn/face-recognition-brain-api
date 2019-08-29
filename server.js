@@ -21,11 +21,11 @@ const db = knex({
   }
 });
 
-db.select('*').from('users').then(
-  data => {
-    console.log(data);
-  }
-);
+// db.select('*').from('users').then(
+//   data => {
+//     console.log(data);
+//   }
+// );
 
 
 const app = express();
@@ -134,20 +134,19 @@ app.post('/register', (req, res) => {
   //     // password: password,
   //     entries: 0,
   //     joined: new Date()
-
   // })
 
   // Write to Database
-  db('users').insert({
+  db('users')
+  .returning('*')
+  .insert({
     email: email,
     name: name,
     joined: new Date()
-  }).then(console.log)
-
-
-
-  res.json(database.users[database.users.length - 1]);
-
+  }).then(user => {
+    res.json(user[0]);
+  })
+  .catch(err => res.status(400).json('unable to register'))
 })
 
 
